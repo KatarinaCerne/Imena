@@ -47,4 +47,5 @@ def prenos2(name):
         #imamo problem, kjer je presledek in kjer ga ni - linki
         god = re.findall(vzorec_god, stran)
         print(god)
-    
+
+        #nekaj spreminjam xD
