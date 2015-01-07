@@ -1,6 +1,5 @@
 import re
 import urllib.request
-import os
 import threading
 
 class Ime:
@@ -18,7 +17,7 @@ class Ime:
     def __str(self):
         return '{}'.format(self.ime)
 
-#spol je enak Z ali M
+#spol je enak 'Z' ali 'M'
 #prvo bova povlekli podatke s statisticnega urada RS
 def prenos1(name, gender):
     
@@ -28,6 +27,8 @@ def prenos1(name, gender):
         podatki = re.findall(vzorec, stran)
         print(podatki)
 
+
+#se prenos podatkov iz wikipedije
 def prenos2(name):
     
     name = name.capitalize()
@@ -38,7 +39,7 @@ def prenos2(name):
         pomen = re.findall(vzorec_pomen, stran) #seznam z 1 elementom (niz)
         print(pomen)
 
-        vzorec_izvor = re.compile(r'<th>Izvor</th>\\n<td>([^<].*)</td>')
+        vzorec_izvor = re.compile(r'<th>Izvor</th>\\n<td>(.[^<]*\w+)</td>')
         #tole ne deluje
         izvor = re.findall(vzorec_izvor, stran)
         print(izvor)
@@ -47,5 +48,3 @@ def prenos2(name):
         #imamo problem, kjer je presledek in kjer ga ni - linki
         god = re.findall(vzorec_god, stran)
         print(god)
-
-        #nekaj spreminjam xD
