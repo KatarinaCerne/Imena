@@ -4,11 +4,12 @@ import threading
 
 class Ime:
 
-    def __init__(self, ime, spol, pomen, izvor, god):
+    def __init__(self, ime, spol, pomen, izvor, izvornaoblika, god):
         self.ime = ime
         self.spol = spol
         self.pomen = pomen
         self.izvor = izvor
+        self.izvornaoblika = izvornaoblika
         self.god = god
 
     def __repr__(self):
@@ -40,11 +41,19 @@ def prenos2(name):
         print(pomen)
 
         vzorec_izvor = re.compile(r'<th>Izvor</th>\\n<td>(.[^<]*\w+)</td>')
-        #tole ne deluje
         izvor = re.findall(vzorec_izvor, stran)
         print(izvor)
 
-        vzorec_god = re.compile(r'<td>.*[^\d](\d+\.\w+).*</td>')
-        #imamo problem, kjer je presledek in kjer ga ni - linki
-        god = re.findall(vzorec_god, stran)
-        print(god)
+        vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>(.[^<]*\w+)</td>')
+        #problem, ce je poleg se kaksen link v oklepaju itd.
+        izvorna_oblika = re.findall(vzorec_izvorna_oblika, stran)
+        print(izvorna_oblika)
+
+        vzorec_god1 = re.compile(r'<th>God</th>\\n<td>(.[^<]*\w+)</td>')
+        #zgornji vzorec je ok, ce nimamo linka
+        god1 = re.findall(vzorec_god1, stran)
+        print(god1)
+        vzorec_god2 = re.compile(r'<th>God</th>\\n<td>.*<a href=".*">([0-9]*\.\w+)</a>.*</td>')
+        #linkan datum hocemo ven
+        god2 = re.findall(vzorec_god2, stran)
+        print(god2)
