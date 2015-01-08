@@ -26,7 +26,7 @@ def prenos1(name, gender):
         stran = str(f.read())
         vzorec = re.compile(r'<p>\s*<span class="naslov2">(.*)</span>s*.*<b>(\d+)\. mesto</b>')
         podatki = re.findall(vzorec, stran)
-        print(podatki)
+        return podatki
 
 
 #se prenos podatkov iz wikipedije
