@@ -10,12 +10,70 @@ class Imena:
             vzorec = re.compile(r'<p>\s*<span class="naslov2">(.*)</span>s*.*<b>(\d+)\. mesto</b>')
             podatki = re.findall(vzorec, stran)
             return podatki
+
+    def prenos2(name):
+    
+        name = name.capitalize()
+        with urllib.request.urlopen('http://sl.wikipedia.org/wiki/{0}'.format(name)) as f:
+            stran = str(f.read())
+
+
+            vzorec_pomen = re.compile(r'<th>Pomen</th>\\n<td><i>(.*)</i></td>')
+            pomen = re.findall(vzorec_pomen, stran)
+            if pomen !=[]:
+                sl["pomen"]= pomen
+            else:
+                sl["pomen"]= ["Ni podatka"]
+            
+
+            vzorec_izvor = re.compile(r'<th>Izvor</th>\\n<td>(.[^<]*\w+)</td>')
+            izvor = re.findall(vzorec_izvor, stran)
+            if izvor !=[]:
+                sl["izvor"]= izvor
+            else:
+                sl["izvor"]= ["Ni podatka"]
+
+            vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>(.[^<]*\w+)</td>')
+            izvorna_oblika = re.findall(vzorec_izvorna_oblika, stran)
+            if izvorna_oblika !=[]:
+                sl["izvorna oblika"]= izvorna_oblika
+            else:
+                sl["izvorna oblika"]= ["Ni podatka"]
+
+            vzorec_god1 = re.compile(r'<th>God</th>\\n<td>(.[^<]*\w+)</td>')
+            god1 = re.findall(vzorec_god1, stran)
+            vzorec_god2 = re.compile(r'<th>God</th>\\n<td>.*<a href=".*">([0-9]*\.\w+)</a>.*</td>')
+            god2 = re.findall(vzorec_god2, stran)
+            if god1 != []:
+                sl["god"] = sl.get("god", [])+god1
+            else:
+                pass
+            if god2 != []:
+                sl["god"] = sl.get("god",[])+god2
+            else:
+                pass
+            if god1 == [] and god2 ==[]:
+                sl["god"] = ["Ni podatka"]
+
+            return sl
     
     def prikazi(self, *argumenti):
         print('Kliknili so me!')
-        self.platno.configure(background='#FF69B4')
+        #self.platno.configure(background='#FF69B4')
         try:
-            print(self.ime, self.spol)
+            imeP=self.ime.get()
+            spolP=self.spol.get()
+            k=prenos1(imeP,spolP)
+            self.stevilo.set(k[0][0])
+            self.pogostost.set("To ime je po pogostosti na "+k[0][1]+str(". mestu."))
+
+            s=prenos2(imeP)
+            self.pomen.set(s["pomen"][0])
+            self.izvor.set(s["izvor"][0])
+            self.izvornaoblika.set(s["izvorna oblika"][0])
+            self.god.set(s["god"][0])
+            
+            #print(self.ime, self.spol)
         except ValueError:
             pass
 
@@ -24,9 +82,18 @@ class Imena:
 
         okvir = Frame(root, padx=10, pady=10)
         okvir.grid(column=0, row=0)
-        
+
+       
         self.ime = StringVar()
         self.spol = StringVar()
+        self.stevilo = StringVar()
+        self.pogostost = StringVar()
+        
+        self.pomen = StringVar()
+        self.izvor = StringVar()
+        self.izvornaoblika = StringVar()
+        self.god = StringVar()
+
         
         vnosno_polje1 = Entry(okvir, textvariable=self.ime)
         vnosno_polje1.grid(column=2, row=1)
@@ -39,8 +106,23 @@ class Imena:
 
         Button(okvir, text='Išči!', command=self.prikazi).grid(column=3, row=3)  # dodam mu funkcijo - callback
 
-        self.platno = Canvas(okvir)
-        self.platno.grid(column=1, row=4)
+        #self.platno = Canvas(okvir2)
+        #self.platno.grid(column=0, row=0)
+
+        Label(okvir, text="Število:").grid(column=1, row=4)
+        Label(okvir, textvariable=self.stevilo).grid(column=2, row=4)
+        Label(okvir, text="Pogostost:").grid(column=1, row=5)
+        Label(okvir, textvariable=self.pogostost).grid(column=2, row=5)
+
+        Label(okvir, text="Pomen:").grid(column=1, row=6)
+        Label(okvir, textvariable=self.pomen).grid(column=2, row=6)
+        Label(okvir, text="Izvor:").grid(column=1, row=7)
+        Label(okvir, textvariable=self.izvor).grid(column=2, row=7)
+        Label(okvir, text="Izvorna oblika:").grid(column=1, row=8)
+        Label(okvir, textvariable=self.izvornaoblika).grid(column=2, row=8)
+        Label(okvir, text="God:").grid(column=1, row=9)
+        Label(okvir, textvariable=self.god).grid(column=2, row=9)
+        
 
         for otrok in okvir.winfo_children():  # gre po vseh graficnih gradnikih v okvirju
             # da ne nastavljamo pri vsakemu posebej
@@ -54,3 +136,4 @@ class Imena:
 master = Tk()
 Imena(master)
 master.mainloop()  # poskrbi, da se okno ne zapre, dokler ga mi ne zapremo na krizec
+
