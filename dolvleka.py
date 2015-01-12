@@ -41,28 +41,28 @@ def prenos2(name):
         vzorec_pomen = re.compile(r'<th>Pomen</th>\\n<td><i>(.*)</i></td>')
         pomen = re.findall(vzorec_pomen, stran) #seznam z 1 elementom (niz)
         print(pomen)
-        if pomen !=[]:
-            sl["pomen"]= pomen
+        if pomen != []:
+            sl["pomen"] = pomen
         else:
-            sl["pomen"]= ["Ni podatka"]
+            sl["pomen"] = ["Ni podatka"]
         
 
         vzorec_izvor = re.compile(r'<th>Izvor</th>\\n<td>(.[^<]*\w+)</td>')
         izvor = re.findall(vzorec_izvor, stran)
         print(izvor)
-        if izvor !=[]:
-            sl["izvor"]= izvor
+        if izvor != []:
+            sl["izvor"] = izvor
         else:
-            sl["izvor"]= ["Ni podatka"]
+            sl["izvor"] = ["Ni podatka"]
 
         vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>(.[^<]*\w+)</td>')
         #problem, ce je poleg se kaksen link v oklepaju itd.
         izvorna_oblika = re.findall(vzorec_izvorna_oblika, stran)
         print(izvorna_oblika)
-        if izvorna_oblika !=[]:
-            sl["izvorna oblika"]= izvorna_oblika
+        if izvorna_oblika != []:
+            sl["izvorna oblika"] = izvorna_oblika
         else:
-            sl["izvorna oblika"]= ["Ni podatka"]
+            sl["izvorna oblika"] = ["Ni podatka"]
 
         vzorec_god1 = re.compile(r'<th>God</th>\\n<td>(.[^<]*\w+)</td>')
         #zgornji vzorec je ok, ce nimamo linka
@@ -80,7 +80,7 @@ def prenos2(name):
             sl["god"] = sl.get("god",[])+god2
         else:
             pass
-        if god1 == [] and god2 ==[]:
+        if god1 == [] and god2 == []:
             sl["god"] = ["Ni podatka"]
 
         return sl
