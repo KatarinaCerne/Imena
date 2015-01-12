@@ -1,6 +1,7 @@
 import re
 import urllib.request
 import threading
+from urllib.parse import quote
 
 class Ime:
 
@@ -21,9 +22,10 @@ class Ime:
 #spol je enak 'Z' ali 'M'
 #prvo bova povlekli podatke s statisticnega urada RS
 def prenos1(name, gender):
-    
-    with urllib.request.urlopen('http://www.stat.si/imena_baza_imena.asp?ime={0}&priimek=&spol={1}'.format(name, gender)) as f:
-        stran = str(f.read())
+    ime = quote(name, encoding="windows-1250")   # enkodiramo utf-8 niz v windows-1250 ter zakodiramo v način, ki je primeren za URL povezave
+    povezava = 'http://www.stat.si/imena_baza_imena.asp?ime={0}&priimek=&spol={1}'.format(ime, gender)
+    with urllib.request.urlopen(povezava) as f:
+        stran = f.read().decode("windows-1250")  # namesto str(f.read()) se uporabi metodo decode
         vzorec = re.compile(r'<p>\s*<span class="naslov2">(.*)</span>s*.*<b>(\d+)\. mesto</b>')
         podatki = re.findall(vzorec, stran)
         return podatki
@@ -32,7 +34,6 @@ def prenos1(name, gender):
 
 #se prenos podatkov iz wikipedije
 def prenos2(name):
-    
     name = name.capitalize()
     with urllib.request.urlopen('http://sl.wikipedia.org/wiki/{0}'.format(name)) as f:
         stran = str(f.read())

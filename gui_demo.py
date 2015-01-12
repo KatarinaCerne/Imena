@@ -2,17 +2,19 @@ __author__ = 'Neza&Katarina'
 
 from tkinter import *
 from dolvleka import*
+from urllib.parse import quote
 
 class Imena:
     def prenos1(name, gender):
-        with urllib.request.urlopen('http://www.stat.si/imena_baza_imena.asp?ime={0}&priimek=&spol={1}'.format(name, gender)) as f:
-            stran = str(f.read())
+        ime = quote(name, encoding="windows-1250")   # enkodiramo utf-8 niz v windows-1250 ter zakodiramo v način, ki je primeren za URL povezave
+        povezava = 'http://www.stat.si/imena_baza_imena.asp?ime={0}&priimek=&spol={1}'.format(ime, gender)
+        with urllib.request.urlopen(povezava) as f:
+            stran = f.read().decode("windows-1250")  # namesto str(f.read()) se uporabi metodo decode
             vzorec = re.compile(r'<p>\s*<span class="naslov2">(.*)</span>s*.*<b>(\d+)\. mesto</b>')
             podatki = re.findall(vzorec, stran)
             return podatki
 
     def prenos2(name):
-    
         name = name.capitalize()
         with urllib.request.urlopen('http://sl.wikipedia.org/wiki/{0}'.format(name)) as f:
             stran = str(f.read())
@@ -21,7 +23,7 @@ class Imena:
             vzorec_pomen = re.compile(r'<th>Pomen</th>\\n<td><i>(.*)</i></td>')
             pomen = re.findall(vzorec_pomen, stran)
             if pomen !=[]:
-                sl["pomen"] = pomen
+                sl["pomen"] = pomen.decode("windows-1250")
             else:
                 sl["pomen"] = ["Ni podatka"]
             
@@ -127,8 +129,9 @@ class Imena:
 
         # hocemo, da se gumb pritisne, ce kliknemo Enter
         root.bind('<Return>', self.prikazi)  # ta fn. se poklice na Enter
+#        root.bind("<Escape>", quit) # na pritisk tipke Esc se program zakljuci
         vnosno_polje1.focus()  # takoj se nam postavi v okence, da lahko pisemo vanj cim se okno odpre
-
+        
 
 master = Tk()
 Imena(master)
