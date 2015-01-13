@@ -35,17 +35,25 @@ def prenos1(name, gender):
 #se prenos podatkov iz wikipedije
 def prenos2(name):
     name = name.capitalize()
-    with urllib.request.urlopen('http://sl.wikipedia.org/wiki/{0}'.format(name)) as f:
+    povezava = 'http://sl.wikipedia.org/wiki/{0}'.format(name)
+    with urllib.request.urlopen(povezava) as f:
         stran = str(f.read())
+##    name = name.capitalize()
+##    ime = quote(name, encoding="utf-8")
+##    povezava = 'http://sl.wikipedia.org/wiki/{0}'.format(ime)
+##    with urllib.request.urlopen(povezava) as f:
+##        stran = f.read().decode("utf-8")
 
-        sl={} #to je slovar, ki bo vseboval vse podatke
+        sl={'pomen': ["Ni podatka"],
+            'izvor': ["Ni podatka"],
+            'izvorna oblika': ["Ni podatka"],
+            'god': ["Ni podatka"]} #to je slovar, ki bo vseboval vse podatke
+        
         vzorec_pomen = re.compile(r'<th>Pomen</th>\\n<td><i>(.*)</i></td>')
         pomen = re.findall(vzorec_pomen, stran) #seznam z 1 elementom (niz)
         print(pomen)
         if pomen != []:
             sl["pomen"] = pomen
-        else:
-            sl["pomen"] = ["Ni podatka"]
         
 
         vzorec_izvor = re.compile(r'<th>Izvor</th>\\n<td>(.[^<]*\w+)</td>')
@@ -53,8 +61,7 @@ def prenos2(name):
         print(izvor)
         if izvor != []:
             sl["izvor"] = izvor
-        else:
-            sl["izvor"] = ["Ni podatka"]
+            
 
         vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>(.[^<]*\w+)</td>')
         #problem, ce je poleg se kaksen link v oklepaju itd.
@@ -62,27 +69,13 @@ def prenos2(name):
         print(izvorna_oblika)
         if izvorna_oblika != []:
             sl["izvorna oblika"] = izvorna_oblika
-        else:
-            sl["izvorna oblika"] = ["Ni podatka"]
+            
 
-        vzorec_god1 = re.compile(r'<th>God</th>\\n<td>(.[^<]*\w+)</td>')
-        #zgornji vzorec je ok, ce nimamo linka
-        god1 = re.findall(vzorec_god1, stran)
-        print(god1)
-        vzorec_god2 = re.compile(r'<th>God</th>\\n<td>.*<a href=".*">([0-9]*\.\w+)</a>.*</td>')
-        #linkan datum hocemo ven
-        god2 = re.findall(vzorec_god2, stran)
-        print(god2)
-        if god1 != []:
-            sl["god"] = sl.get("god", [])+god1
-        else:
-            pass
-        if god2 != []:
-            sl["god"] = sl.get("god",[])+god2
-        else:
-            pass
-        if god1 == [] and god2 == []:
-            sl["god"] = ["Ni podatka"]
+        vzorec_god = re.compile(r'<th>God</th>\\n<td>(.[^<]*\w+)</td>')
+        god = re.findall(vzorec_god, stran)
+        print(god)
+        if god != []:
+            sl["god"] = god
 
         return sl
     
