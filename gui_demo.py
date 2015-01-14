@@ -34,15 +34,13 @@ class Imena:
             pomen = re.findall(vzorec_pomen, stran) #seznam z 1 elementom (niz)
             print(pomen)
             if pomen != []:
-                sl["pomen"] = pomen
-            
+                sl["pomen"] = pomen           
 
             vzorec_izvor = re.compile(r'<th>Izvor</th>\\n<td>(.[^<]*\w+)</td>')
             izvor = re.findall(vzorec_izvor, stran)
             print(izvor)
             if izvor != []:
-                sl["izvor"] = izvor
-                
+                sl["izvor"] = izvor        
 
             vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>(.[^<]*\w+)</td>')
             #problem, ce je poleg se kaksen link v oklepaju itd.
@@ -51,7 +49,6 @@ class Imena:
             if izvorna_oblika != []:
                 sl["izvorna oblika"] = izvorna_oblika
                 
-
             vzorec_god = re.compile(r'<th>God</th>\\n<td>(.[^<]*\w+)</td>')
             god = re.findall(vzorec_god, stran)
             print(god)
@@ -66,10 +63,8 @@ class Imena:
             imeP = self.ime.get()
             spolP = self.spol.get()
             k = prenos1(imeP,spolP)
-            try:
-                self.stevilo.set(k[0][0])
-                self.pogostost.set("To ime je po pogostosti na " + k[0][1] + str(". mestu."))
-            except: ValueError
+            self.stevilo.set(k[0][0])
+            self.pogostost.set("To ime je po pogostosti na " + k[0][1] + str(". mestu."))
             
             s = prenos2(imeP)
             self.pomen.set(s["pomen"][0])
@@ -82,12 +77,11 @@ class Imena:
             pass
 
     def __init__(self, root):
-        root.title('Say my name')       
+        root.title('Say my name')
 
         okvir = Frame(root, padx=10, pady=10)
         okvir.grid(column=0, row=0)
 
-       
         self.ime = StringVar()
         self.spol = StringVar()
         
@@ -101,14 +95,16 @@ class Imena:
 
         vnosno_polje1 = Entry(okvir, textvariable=self.ime)
         vnosno_polje1.grid(column=2, row=1)
-
-        vnosno_polje2 = Entry(okvir, textvariable=self.spol)
-        vnosno_polje2.grid(column=2, row=2)
         
-        Label(okvir, text='Vnesi ime:', justify=RIGHT).grid(column=1, row=1, sticky=E) #sticky pozicionira tekst
-        Label(okvir, text='Vnesi spol: (moški = M, ženski = Z)').grid(column=1, row=2, sticky=E) #N,S,E,W pridejo v postev
+        Label(okvir, text='Vnesi ime:').grid(column=1, row=1, sticky=E) #sticky pozicionira tekst
+        Label(okvir, text='Spol (označi le eno polje):').grid(column=1, row=2, sticky=E) #N,S,E,W pridejo v postev
 
-        Button(okvir, text='Išči!', font=("Tahoma", 14), fg='#ff0000', command=self.prikazi).grid(column=3, row=3)  # dodam mu funkcijo - callback
+        moski = Radiobutton(okvir, text='Moški', variable=self.spol, value='M')
+        moski.grid(column=2, row=2)
+        zenski = Radiobutton(okvir, text='Ženski', variable=self.spol, value='Z')
+        zenski.grid(column=3, row=2)
+
+        Button(okvir, text='Išči!', font=("Tahoma", 14), fg='#ff0000', command=self.prikazi).grid(column=4, row=3)  # dodam mu funkcijo - callback
 
         Label(okvir, text="Število:", font=("Tahoma", 14), fg='#48b427').grid(column=1, row=4, sticky=E)
         Label(okvir, textvariable=self.stevilo, font=("Helvetica", 12)).grid(column=2, row=4, sticky=W)
@@ -122,8 +118,7 @@ class Imena:
         Label(okvir, text="Izvorna oblika:", font=("Tahoma", 14), fg='#2e2230').grid(column=1, row=8, sticky=E)
         Label(okvir, textvariable=self.izvornaoblika, font=("Helvetica", 12)).grid(column=2, row=8, sticky=W)
         Label(okvir, text="God:", font=("Tahoma", 14), fg='#2e2230').grid(column=1, row=9, sticky=E)
-        Label(okvir, textvariable=self.god, font=("Helvetica", 12)).grid(column=2, row=9, sticky=W)
-        
+        Label(okvir, textvariable=self.god, font=("Helvetica", 12)).grid(column=2, row=9, sticky=W)    
 
         for otrok in okvir.winfo_children():  # gre po vseh graficnih gradnikih v okvirju
             # da ne nastavljamo pri vsakemu posebej
@@ -134,7 +129,6 @@ class Imena:
 #        root.bind("<Escape>", quit) # na pritisk tipke Esc se program zakljuci
         vnosno_polje1.focus()  # takoj se nam postavi v okence, da lahko pisemo vanj cim se okno odpre
         
-
 master = Tk()
 Imena(master)
 master.mainloop()  # poskrbi, da se okno ne zapre, dokler ga mi ne zapremo na krizec
