@@ -134,7 +134,7 @@ class Imena:
         k12.grid(column=2, row=8, sticky=W)
         k13=Label(okvir, text="God:", font=("Tahoma", 14), fg='#2e2230',background="#F2F7BB")
         k13.grid(column=1, row=9, sticky=E)
-        k15=Label(okvir, textvariable=self.god, font=("Helvetica", 12),background="#F2F7BB")
+        k14=Label(okvir, textvariable=self.god, font=("Helvetica", 12),background="#F2F7BB")
         k14.grid(column=2, row=9, sticky=W)    
 
         for otrok in okvir.winfo_children():  # gre po vseh graficnih gradnikih v okvirju
