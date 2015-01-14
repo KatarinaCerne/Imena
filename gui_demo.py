@@ -103,8 +103,10 @@ class Imena:
         k2.grid(column=1, row=2, sticky=E) #N,S,E,W pridejo v postev
         
         moski = Radiobutton(okvir, text='Moški', variable=self.spol, value='M',background="#F2F7BB")
+        moski.deselect()
         moski.grid(column=2, row=2)
         zenski = Radiobutton(okvir, text='Ženski', variable=self.spol, value='Z',background="#F2F7BB")
+        zenski.deselect()
         zenski.grid(column=3, row=2)
         #problem: na začetku sta oba gumba aktivirana
 
