@@ -34,26 +34,26 @@ class Imena:
             pomen = re.findall(vzorec_pomen, stran) #seznam z 1 elementom (niz)
             print(pomen)
             if pomen != []:
-                sl["pomen"] = pomen           
+                sl["pomen"] = pomen[0]          
 
             vzorec_izvor = re.compile(r'<th>Izvor</th>\\n<td>(.[^<]*\w+)</td>')
             izvor = re.findall(vzorec_izvor, stran)
             print(izvor)
             if izvor != []:
-                sl["izvor"] = izvor        
+                sl["izvor"] = izvor[0]        
 
             vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>(.[^<]*\w+)</td>')
             #problem, ce je poleg se kaksen link v oklepaju itd.
             izvorna_oblika = re.findall(vzorec_izvorna_oblika, stran)
             print(izvorna_oblika)
             if izvorna_oblika != []:
-                sl["izvorna oblika"] = izvorna_oblika
+                sl["izvorna oblika"] = izvorna_oblika[0]
                 
             vzorec_god = re.compile(r'<th>God</th>\\n<td>(.[^<]*\w+)</td>')
             god = re.findall(vzorec_god, stran)
             print(god)
             if god != []:
-                sl["god"] = god
+                sl["god"] = god[0]
 
             return sl
     
@@ -67,10 +67,10 @@ class Imena:
             self.pogostost.set("To ime je po pogostosti na " + k[0][1] + str(". mestu."))
             
             s = prenos2(imeP)
-            self.pomen.set(s["pomen"][0])
-            self.izvor.set(s["izvor"][0])
-            self.izvornaoblika.set(s["izvorna oblika"][0])
-            self.god.set(s["god"][0])
+            self.pomen.set(s["pomen"])
+            self.izvor.set(s["izvor"])
+            self.izvornaoblika.set(s["izvorna oblika"])
+            self.god.set(s["god"])
             
             #print(self.ime, self.spol)
         except ValueError:

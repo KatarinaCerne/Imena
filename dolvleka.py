@@ -53,14 +53,14 @@ def prenos2(name):
         pomen = re.findall(vzorec_pomen, stran) #seznam z 1 elementom (niz)
         print(pomen)
         if pomen != []:
-            sl["pomen"] = pomen
+            sl["pomen"] = pomen[0]
         
 
         vzorec_izvor = re.compile(r'<th>Izvor</th>\\n<td>(.[^<]*\w+)</td>')
         izvor = re.findall(vzorec_izvor, stran)
         print(izvor)
         if izvor != []:
-            sl["izvor"] = izvor
+            sl["izvor"] = izvor[0]
             
 
         vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>(.[^<]*\w+)</td>')
@@ -68,14 +68,14 @@ def prenos2(name):
         izvorna_oblika = re.findall(vzorec_izvorna_oblika, stran)
         print(izvorna_oblika)
         if izvorna_oblika != []:
-            sl["izvorna oblika"] = izvorna_oblika
+            sl["izvorna oblika"] = izvorna_oblika[0]
             
 
         vzorec_god = re.compile(r'<th>God</th>\\n<td>(.[^<]*\w+)</td>')
         god = re.findall(vzorec_god, stran)
         print(god)
         if god != []:
-            sl["god"] = god
+            sl["god"] = god[0]
 
         return sl
     
