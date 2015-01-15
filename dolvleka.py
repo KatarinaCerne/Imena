@@ -44,10 +44,10 @@ def prenos2(name):
 ##    with urllib.request.urlopen(povezava) as f:
 ##        stran = f.read().decode("utf-8")
 
-        sl={'pomen': ["Ni podatka"],
-            'izvor': ["Ni podatka"],
-            'izvorna oblika': ["Ni podatka"],
-            'god': ["Ni podatka"]} #to je slovar, ki bo vseboval vse podatke
+        sl={'pomen': "Ni podatka",
+            'izvor': "Ni podatka",
+            'izvorna oblika': "Ni podatka",
+            'god': "Ni podatka"} #to je slovar, ki bo vseboval vse podatke
         
         vzorec_pomen = re.compile(r'<th>Pomen</th>\\n<td><i>(.*)</i></td>')
         pomen = re.findall(vzorec_pomen, stran) #seznam z 1 elementom (niz)
@@ -63,7 +63,7 @@ def prenos2(name):
             sl["izvor"] = izvor[0]
             
 
-        vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>(.[^<]*\w+)</td>')
+        vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>(\(?.[^<]*\w+\)?)</td>')
         #problem, ce je poleg se kaksen link v oklepaju itd.
         izvorna_oblika = re.findall(vzorec_izvorna_oblika, stran)
         print(izvorna_oblika)

@@ -25,10 +25,10 @@ class Imena:
     ##    with urllib.request.urlopen(povezava) as f:
     ##        stran = f.read().decode("utf-8")
 
-            sl={'pomen': ["Ni podatka"],
-                'izvor': ["Ni podatka"],
-                'izvorna oblika': ["Ni podatka"],
-                'god': ["Ni podatka"]} #to je slovar, ki bo vseboval vse podatke
+            sl={'pomen': "Ni podatka",
+                'izvor': "Ni podatka",
+                'izvorna oblika': "Ni podatka",
+                'god': "Ni podatka"} #to je slovar, ki bo vseboval vse podatke
             
             vzorec_pomen = re.compile(r'<th>Pomen</th>\\n<td><i>(.*)</i></td>')
             pomen = re.findall(vzorec_pomen, stran) #seznam z 1 elementom (niz)
@@ -42,8 +42,7 @@ class Imena:
             if izvor != []:
                 sl["izvor"] = izvor[0]        
 
-            vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>(.[^<]*\w+)</td>')
-            #problem, ce je poleg se kaksen link v oklepaju itd.
+            vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>(\(?.[^<]*\w+\)?)</td>')
             izvorna_oblika = re.findall(vzorec_izvorna_oblika, stran)
             print(izvorna_oblika)
             if izvorna_oblika != []:
@@ -71,8 +70,6 @@ class Imena:
             self.izvor.set(s["izvor"])
             self.izvornaoblika.set(s["izvorna oblika"])
             self.god.set(s["god"])
-            
-            #print(self.ime, self.spol)
         except ValueError:
             pass
 
@@ -80,10 +77,12 @@ class Imena:
         root.title('Say my name')
 
         okvir = Frame(root, padx=10, pady=10)
+        okvir.configure(background="#F2F7BB")
         okvir.grid(column=0, row=0)
 
         self.ime = StringVar()
         self.spol = StringVar()
+        self.spol.set("M")
         
         self.stevilo = StringVar()
         self.pogostost = StringVar()
@@ -96,29 +95,44 @@ class Imena:
         vnosno_polje1 = Entry(okvir, textvariable=self.ime)
         vnosno_polje1.grid(column=2, row=1)
         
-        Label(okvir, text='Vnesi ime:').grid(column=1, row=1, sticky=E) #sticky pozicionira tekst
-        Label(okvir, text='Spol (označi le eno polje):').grid(column=1, row=2, sticky=E) #N,S,E,W pridejo v postev
-
-        moski = Radiobutton(okvir, text='Moški', variable=self.spol, value='M')
+        k1=Label(okvir, text='Vnesi ime:',background="#F2F7BB")
+        k1.grid(column=1, row=1, sticky=E)#sticky pozicionira tekst
+        k2=Label(okvir, text='Spol:',background="#F2F7BB")
+        k2.grid(column=1, row=2, sticky=E) #N,S,E,W pridejo v postev
+        
+        moski = Radiobutton(okvir, text='Moški', variable=self.spol, value='M',background="#F2F7BB")
         moski.grid(column=2, row=2)
-        zenski = Radiobutton(okvir, text='Ženski', variable=self.spol, value='Z')
+        zenski = Radiobutton(okvir, text='Ženski', variable=self.spol, value='Z',background="#F2F7BB")
         zenski.grid(column=3, row=2)
 
-        Button(okvir, text='Išči!', font=("Tahoma", 14), fg='#ff0000', command=self.prikazi).grid(column=4, row=3)  # dodam mu funkcijo - callback
+        k0=Button(okvir, text='Išči!', font=("Tahoma", 14), fg='#ff0000', command=self.prikazi, background="#FFFFFF")
+        k0.grid(column=4, row=3)  # dodam mu funkcijo - callback
 
-        Label(okvir, text="Število:", font=("Tahoma", 14), fg='#48b427').grid(column=1, row=4, sticky=E)
-        Label(okvir, textvariable=self.stevilo, font=("Helvetica", 12)).grid(column=2, row=4, sticky=W)
-        Label(okvir, text="Pogostost:", font=("Tahoma", 14), fg='#48b427').grid(column=1, row=5, sticky=E)
-        Label(okvir, textvariable=self.pogostost, font=("Helvetica", 12)).grid(column=2, row=5, sticky=W)
+        k3=Label(okvir, text="Število:", font=("Tahoma", 14), fg='#48b427',background="#F2F7BB")
+        k3.grid(column=1, row=4, sticky=E)
+        k4=Label(okvir, textvariable=self.stevilo, font=("Helvetica", 12),background="#F2F7BB")
+        k4.grid(column=2, row=4, sticky=W)
+        k5=Label(okvir, text="Pogostost:", font=("Tahoma", 14), fg='#48b427',background="#F2F7BB")
+        k5.grid(column=1, row=5, sticky=E)
+        k6=Label(okvir, textvariable=self.pogostost, font=("Helvetica", 12),background="#F2F7BB")
+        k6.grid(column=2, row=5, sticky=W)
 
-        Label(okvir, text="Pomen:", font=("Tahoma", 14), fg='#2e2230').grid(column=1, row=6, sticky=E)
-        Label(okvir, textvariable=self.pomen, font=("Helvetica", 12)).grid(column=2, row=6, sticky=W)
-        Label(okvir, text="Izvor:", font=("Tahoma", 14), fg='#2e2230').grid(column=1, row=7, sticky=E)
-        Label(okvir, textvariable=self.izvor, font=("Helvetica", 12)).grid(column=2, row=7, sticky=W)
-        Label(okvir, text="Izvorna oblika:", font=("Tahoma", 14), fg='#2e2230').grid(column=1, row=8, sticky=E)
-        Label(okvir, textvariable=self.izvornaoblika, font=("Helvetica", 12)).grid(column=2, row=8, sticky=W)
-        Label(okvir, text="God:", font=("Tahoma", 14), fg='#2e2230').grid(column=1, row=9, sticky=E)
-        Label(okvir, textvariable=self.god, font=("Helvetica", 12)).grid(column=2, row=9, sticky=W)    
+        k7=Label(okvir, text="Pomen:", font=("Tahoma", 14), fg='#2e2230',background="#F2F7BB")
+        k7.grid(column=1, row=6, sticky=E)
+        k8=Label(okvir, textvariable=self.pomen, font=("Helvetica", 12),background="#F2F7BB")
+        k8.grid(column=2, row=6, sticky=W)
+        k9=Label(okvir, text="Izvor:", font=("Tahoma", 14), fg='#2e2230',background="#F2F7BB")
+        k9.grid(column=1, row=7, sticky=E)
+        k10=Label(okvir, textvariable=self.izvor, font=("Helvetica", 12),background="#F2F7BB")
+        k10.grid(column=2, row=7, sticky=W)
+        k11=Label(okvir, text="Izvorna oblika:", font=("Tahoma", 14), fg='#2e2230',background="#F2F7BB")
+        k11.grid(column=1, row=8, sticky=E)
+        k12=Label(okvir, textvariable=self.izvornaoblika, font=("Helvetica", 12),background="#F2F7BB")
+        k12.grid(column=2, row=8, sticky=W)
+        k13=Label(okvir, text="God:", font=("Tahoma", 14), fg='#2e2230',background="#F2F7BB")
+        k13.grid(column=1, row=9, sticky=E)
+        k14=Label(okvir, textvariable=self.god, font=("Helvetica", 12),background="#F2F7BB")
+        k14.grid(column=2, row=9, sticky=W)    
 
         for otrok in okvir.winfo_children():  # gre po vseh graficnih gradnikih v okvirju
             # da ne nastavljamo pri vsakemu posebej
