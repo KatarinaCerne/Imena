@@ -34,19 +34,19 @@ class Imena:
             pomen = re.findall(vzorec_pomen, stran) #seznam z 1 elementom (niz)
             print(pomen)
             if pomen != []:
-                sl["pomen"] = pomen[0]          
+                sl["pomen"] = popravi(pomen[0])          
 
             vzorec_izvor = re.compile(r'<th>Izvor</th>\\n<td>(.[^<]*\w+)</td>')
             izvor = re.findall(vzorec_izvor, stran)
             print(izvor)
             if izvor != []:
-                sl["izvor"] = izvor[0]        
+                sl["izvor"] = popravi(izvor[0])        
 
             vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>(\(?.[^<]*\w+\)?)</td>')
             izvorna_oblika = re.findall(vzorec_izvorna_oblika, stran)
             print(izvorna_oblika)
             if izvorna_oblika != []:
-                sl["izvorna oblika"] = izvorna_oblika[0]
+                sl["izvorna oblika"] = popravi(izvorna_oblika[0])
                 
             vzorec_god = re.compile(r'<th>God</th>\\n<td>(.[^<]*\w+)</td>')
             god = re.findall(vzorec_god, stran)
@@ -95,9 +95,9 @@ class Imena:
         vnosno_polje1 = Entry(okvir, textvariable=self.ime)
         vnosno_polje1.grid(column=2, row=1)
         
-        k1=Label(okvir, text='Vnesi ime:',background="#F2F7BB")
+        k1 = Label(okvir, text='Vnesi ime:',background="#F2F7BB")
         k1.grid(column=1, row=1, sticky=E)#sticky pozicionira tekst
-        k2=Label(okvir, text='Spol:',background="#F2F7BB")
+        k2 = Label(okvir, text='Spol:',background="#F2F7BB")
         k2.grid(column=1, row=2, sticky=E) #N,S,E,W pridejo v postev
         
         moski = Radiobutton(okvir, text='Moški', variable=self.spol, value='M',background="#F2F7BB")
@@ -108,30 +108,30 @@ class Imena:
         k0=Button(okvir, text='Išči!', font=("Tahoma", 14), fg='#ff0000', command=self.prikazi, background="#FFFFFF")
         k0.grid(column=4, row=3)  # dodam mu funkcijo - callback
 
-        k3=Label(okvir, text="Število:", font=("Tahoma", 14), fg='#48b427',background="#F2F7BB")
+        k3 = Label(okvir, text="Število:", font=("Tahoma", 14), fg='#48b427',background="#F2F7BB")
         k3.grid(column=1, row=4, sticky=E)
-        k4=Label(okvir, textvariable=self.stevilo, font=("Helvetica", 12),background="#F2F7BB")
+        k4 = Label(okvir, textvariable=self.stevilo, font=("Helvetica", 12),background="#F2F7BB")
         k4.grid(column=2, row=4, sticky=W)
-        k5=Label(okvir, text="Pogostost:", font=("Tahoma", 14), fg='#48b427',background="#F2F7BB")
+        k5 = Label(okvir, text="Pogostost:", font=("Tahoma", 14), fg='#48b427',background="#F2F7BB")
         k5.grid(column=1, row=5, sticky=E)
-        k6=Label(okvir, textvariable=self.pogostost, font=("Helvetica", 12),background="#F2F7BB")
+        k6 = Label(okvir, textvariable=self.pogostost, font=("Helvetica", 12),background="#F2F7BB")
         k6.grid(column=2, row=5, sticky=W)
 
-        k7=Label(okvir, text="Pomen:", font=("Tahoma", 14), fg='#2e2230',background="#F2F7BB")
+        k7 = Label(okvir, text="Pomen:", font=("Tahoma", 14), fg='#2e2230',background="#F2F7BB")
         k7.grid(column=1, row=6, sticky=E)
-        k8=Label(okvir, textvariable=self.pomen, font=("Helvetica", 12),background="#F2F7BB")
+        k8 = Label(okvir, textvariable=self.pomen, font=("Helvetica", 12),background="#F2F7BB")
         k8.grid(column=2, row=6, sticky=W)
-        k9=Label(okvir, text="Izvor:", font=("Tahoma", 14), fg='#2e2230',background="#F2F7BB")
+        k9 = Label(okvir, text="Izvor:", font=("Tahoma", 14), fg='#2e2230',background="#F2F7BB")
         k9.grid(column=1, row=7, sticky=E)
-        k10=Label(okvir, textvariable=self.izvor, font=("Helvetica", 12),background="#F2F7BB")
+        k10 = Label(okvir, textvariable=self.izvor, font=("Helvetica", 12),background="#F2F7BB")
         k10.grid(column=2, row=7, sticky=W)
-        k11=Label(okvir, text="Izvorna oblika:", font=("Tahoma", 14), fg='#2e2230',background="#F2F7BB")
+        k11 = Label(okvir, text="Izvorna oblika:", font=("Tahoma", 14), fg='#2e2230',background="#F2F7BB")
         k11.grid(column=1, row=8, sticky=E)
-        k12=Label(okvir, textvariable=self.izvornaoblika, font=("Helvetica", 12),background="#F2F7BB")
+        k12 = Label(okvir, textvariable=self.izvornaoblika, font=("Helvetica", 12),background="#F2F7BB")
         k12.grid(column=2, row=8, sticky=W)
-        k13=Label(okvir, text="God:", font=("Tahoma", 14), fg='#2e2230',background="#F2F7BB")
+        k13 = Label(okvir, text="God:", font=("Tahoma", 14), fg='#2e2230',background="#F2F7BB")
         k13.grid(column=1, row=9, sticky=E)
-        k14=Label(okvir, textvariable=self.god, font=("Helvetica", 12),background="#F2F7BB")
+        k14 = Label(okvir, textvariable=self.god, font=("Helvetica", 12),background="#F2F7BB")
         k14.grid(column=2, row=9, sticky=W)    
 
         for otrok in okvir.winfo_children():  # gre po vseh graficnih gradnikih v okvirju
