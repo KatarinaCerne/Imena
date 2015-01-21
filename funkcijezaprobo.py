@@ -55,7 +55,7 @@ def prenos2(name, gender):
             else:
                 sl["izvor"]= ["Ni podatka"]
 
-            vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>(.[^<]*\w+)</td>')
+            vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\\n<td>([A-Z][a-z])</td>')
             #problem, ce je poleg se kaksen link v oklepaju itd.
             izvorna_oblika = re.findall(vzorec_izvorna_oblika, stran)
             #print(izvorna_oblika)
