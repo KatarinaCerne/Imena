@@ -1,0 +1,60 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[slovene]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{eurosym}
+
+\begin {document}
+
+\begin{center}
+{\huge\textbf{Imena}}\\
+{\large{Projekt pri predmetu Programiranje 1}}\\
+{\large\textsc{Katarina Černe, Neža Dimec}}
+\end{center}
+
+\tableofcontents
+
+\section{Opis projekta}
+
+Aplikacija, ki je bila ustvarjena pri projektu Imena, omogoča uporabniku, da preko enostavnega iskalnika izbrska nekaj statističnih podatkov o vnešenem imenu:
+
+\begin{itemize}
+\item število pojavitev določenega imena v Sloveniji glede na spol,
+\item pogostost v Sloveniji,
+\end{itemize}
+
+\noindent ter poleg izbrska še podatke o:
+
+\begin{itemize}
+\item pomenu imena,
+\item izvoru imena,
+\item izvorni obliki imena,
+\item godovnem dnevu.
+\end{itemize}
+
+V primeru, ko se poleg izpisanega rezultata pojavi še *, obstaja možnost, da izpisan rezultat ni najbolj natančen, saj je aplikacija zaradi pomanjkljive spletne baze za vnešeno ime, podatke iskala preko imena, ki je zapisano v izvorni obliki prvotnega imena.
+
+\section {Podatkovni viri}
+
+Vir podatkov sta spletni strani:
+\begin{itemize}
+\item http://www.stat.si/imena.asp\\
+(vir statističnih podatkov)
+\item http://sl.wikipedia.org/w/index.php?\\
+(vir podatkov o pomenu, izvoru, izvorni obliki, godovnem dnevu)
+\end{itemize}
+
+\section{Uporabniški vmesnik}
+
+Program  "gui\_demo.py"~ ob zagonu odpre okno, kamor lahko v iskalno okence vpišemo željeno poizvedbo. Pod iskalnim okencem se nam ponuja izbira spola. Iskanje poženemo z gumbom "Išči!"~ ali s pritiskom na tipko "Enter". Iskalna funkcija nam nato vrne iskane podatke in jih izpiše uporabniku v prikazovalniku spodaj.
+
+\section{Testiranje}
+Program za iskanje sva testirali z naključno izbranimi imeni, zato ne izključujeva možnosti, da morda za kakšno izmed imen aplikacija ne prikaže vseh željenih podakov, v primeru, da je stran o imenu iz wikipedije oblikovana kako drugače kot v običajnem primeru. Na primerih, ki sva jih uspeli preizkusiti, aplikacija deluje pravilno.
+
+
+
+
+
+
+\end{document}
