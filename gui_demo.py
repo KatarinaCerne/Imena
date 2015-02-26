@@ -89,12 +89,6 @@ class Imena:
             # da ne nastavljamo pri vsakemu posebej
             otrok.grid_configure(padx=4, pady=2)
 
-        # prilagodi velikost vrstic in stolpcev, če spremenimo velikost okna
-        for i in range(9):
-            root.columnconfigure(i, weight=i)
-        for j in range(11):
-            root.rowconfigure(j, weight=j)
-
         # hocemo, da se gumb pritisne, ce kliknemo Enter
         root.bind('<Return>', self.prikazi)  # ta fn. se poklice na Enter
 #        root.bind("<Escape>", quit) # na pritisk tipke Esc se program zakljuci
