@@ -2,7 +2,6 @@ __author__ = 'Neza&Katarina'
 
 from tkinter import *
 from dolvleka import*
-from urllib.parse import quote
 
 class Imena:   
     def prikazi(self, *argumenti):
