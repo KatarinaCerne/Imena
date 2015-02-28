@@ -96,5 +96,6 @@ class Imena:
         
 master = Tk()
 Imena(master)
+master.resizable(width=FALSE, height=FALSE) #uporabnik ne more spreminjati velikosti okna
 master.mainloop()  # poskrbi, da se okno ne zapre, dokler ga mi ne zapremo na krizec
 

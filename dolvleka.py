@@ -34,7 +34,7 @@ def prenos2(name, gender):
         
     for element in seznam:
         element = quote(element, encoding="utf-8")
-        print(element)
+##        print(element)
         povezava = 'http://sl.wikipedia.org/wiki/{0}'.format(element)
         
         try:
@@ -43,25 +43,25 @@ def prenos2(name, gender):
           
                 vzorec_pomen = re.compile(r'<th>Pomen</th>\s*<td><i>(.*)</i></td>')
                 pomen = re.findall(vzorec_pomen, stran)
-                print(pomen)
+##                print(pomen)
                 if pomen != []:
                     sl["pomen"] = pomen[0]
 
                 vzorec_izvor = re.compile(r'<th>Izvor</th>\s*<td>(.[^<]*\w+)</td>')
                 izvor = re.findall(vzorec_izvor, stran)
-                print(izvor)
+##                print(izvor)
                 if izvor != []:
                     sl["izvor"] = izvor[0]
                 
                 vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\s*<td>(.[^<]*\w+)</td>')
                 izvorna_oblika = re.findall(vzorec_izvorna_oblika, stran)
-                print(izvorna_oblika)
+##                print(izvorna_oblika)
                 if izvorna_oblika != []:
                     sl["izvorna oblika"] = izvorna_oblika[0] 
 
                 vzorec_god = re.compile(r'<th>God</th>\s*<td>(.[^<]*\w+)</td>')
                 god = re.findall(vzorec_god, stran)
-                print(god)
+##                print(god)
                 if god != []:
                     sl["god"] = god[0]
         except:
@@ -77,44 +77,44 @@ def prenos2(name, gender):
         
     #v primeru, da je naš prvi slovar brez podatkov,
     #bomo slovar napolni s podatki imena izvorne oblike
-    if sl["izvorna oblika"] != 'Ni podatka':
-        ime = quote(sl["izvorna oblika"], encoding="utf-8")
-        povezava = 'http://sl.wikipedia.org/wiki/{0}'.format(ime)
-        print('brskali bomo po izvorni obliki')
-        slovarcek = dict()
-        try:
-            with urllib.request.urlopen(povezava) as f:
-                stran = f.read().decode("utf-8")
-          
-                vzorec_pomen = re.compile(r'<th>Pomen</th>\s*<td><i>(.*)</i></td>')
-                pomen = re.findall(vzorec_pomen, stran)
-                if pomen != []:
-                    slovarcek["pomen"] = pomen[0]
+    if sl['pomen'] == 'Ni podatka' or sl['izvor'] == 'Ni podatka' or sl['god'] == 'Ni podatka': 
+        if sl["izvorna oblika"] != 'Ni podatka':
+            ime = quote(sl["izvorna oblika"], encoding="utf-8")
+            povezava = 'http://sl.wikipedia.org/wiki/{0}'.format(ime)
+            print('brskali bomo po izvorni obliki')
+            slovarcek = dict()
+            try:
+                with urllib.request.urlopen(povezava) as f:
+                    stran = f.read().decode("utf-8")
+              
+                    vzorec_pomen = re.compile(r'<th>Pomen</th>\s*<td><i>(.*)</i></td>')
+                    pomen = re.findall(vzorec_pomen, stran)
+                    if pomen != []:
+                        slovarcek["pomen"] = pomen[0]
 
-                vzorec_izvor = re.compile(r'<th>Izvor</th>\s*<td>(.[^<]*\w+)</td>')
-                izvor = re.findall(vzorec_izvor, stran)
-                if izvor != []:
-                    slovarcek["izvor"] = izvor[0]
-                
-                vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\s*<td>(.[^<]*\w+)</td>')
-                izvorna_oblika = re.findall(vzorec_izvorna_oblika, stran)
-                if izvorna_oblika != []:
-                    slovarcek["izvorna oblika"] = izvorna_oblika[0]
+                    vzorec_izvor = re.compile(r'<th>Izvor</th>\s*<td>(.[^<]*\w+)</td>')
+                    izvor = re.findall(vzorec_izvor, stran)
+                    if izvor != []:
+                        slovarcek["izvor"] = izvor[0]
                     
-                vzorec_god = re.compile(r'<th>God</th>\s*<td>(.[^<]*\w+)</td>')
-                god = re.findall(vzorec_god, stran)
-                if god != []:
-                    slovarcek["god"] = god[0]
-
-            if sl['izvor'] == 'Ni podatka':
-                sl['izvor'] = slovarcek['izvor'] + '*'
-            if sl['pomen'] == 'Ni podatka':
-                sl['pomen'] = slovarcek['pomen'] + '*'
-            if sl['god'] == 'Ni podatka':
-                sl['god'] = slovarcek['god'] + '*'
-            #zraven izpisa dodamo še zvezdico, da vemo, da smo malček pogoljufali pri zbiranju podatkov
-        except:
-            pass
+                    vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\s*<td>(.[^<]*\w+)</td>')
+                    izvorna_oblika = re.findall(vzorec_izvorna_oblika, stran)
+                    if izvorna_oblika != []:
+                        slovarcek["izvorna oblika"] = izvorna_oblika[0]
+                        
+                    vzorec_god = re.compile(r'<th>God</th>\s*<td>(.[^<]*\w+)</td>')
+                    god = re.findall(vzorec_god, stran)
+                    if god != []:
+                        slovarcek["god"] = god[0]
+                if sl['izvor'] == 'Ni podatka':
+                    sl['izvor'] = slovarcek['izvor'] + '*'
+                if sl['pomen'] == 'Ni podatka':
+                    sl['pomen'] = slovarcek['pomen'] + '*'
+                if sl['god'] == 'Ni podatka':
+                    sl['god'] = slovarcek['god'] + '*'
+                #zraven izpisa dodamo še zvezdico, da vemo, da smo malček pogoljufali pri zbiranju podatkov
+            except:
+                pass
         
     return sl
     
