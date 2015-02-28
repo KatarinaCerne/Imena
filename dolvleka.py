@@ -65,12 +65,12 @@ def prenos2(name, gender):
                 if god != []:
                     sl["god"] = god[0]
         except:
-            print("error")
-            continue
+##            print("error")
+            pass
         
     
         if sl["pomen"]==sl["izvor"]==sl["izvorna oblika"]==sl["god"]:
-            print("to ime je čudno")
+##            print("to ime je čudno")
             pass
         else:
             break
@@ -81,7 +81,7 @@ def prenos2(name, gender):
         if sl["izvorna oblika"] != 'Ni podatka':
             ime = quote(sl["izvorna oblika"], encoding="utf-8")
             povezava = 'http://sl.wikipedia.org/wiki/{0}'.format(ime)
-            print('brskali bomo po izvorni obliki')
+            #print('brskali bomo po izvorni obliki')
             slovarcek = dict()
             try:
                 with urllib.request.urlopen(povezava) as f:

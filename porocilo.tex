@@ -4,6 +4,7 @@
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \usepackage{eurosym}
+\usepackage{graphicx}
 
 \begin {document}
 
@@ -14,6 +15,8 @@
 \end{center}
 
 \tableofcontents
+
+\newpage
 
 \section{Opis projekta}
 
@@ -35,7 +38,7 @@ Aplikacija, ki je bila ustvarjena pri projektu Imena, omogoča uporabniku, da pr
 
 V primeru, ko se poleg izpisanega rezultata pojavi še *, obstaja možnost, da izpisan rezultat ni najbolj natančen, saj je aplikacija zaradi pomanjkljive spletne baze za vnešeno ime, podatke iskala preko imena, ki je zapisano v izvorni obliki prvotnega imena.
 
-\section {Podatkovni viri}
+\section{Podatkovni viri}
 
 Vir podatkov sta spletni strani:
 \begin{itemize}
@@ -45,9 +48,29 @@ Vir podatkov sta spletni strani:
 (vir podatkov o pomenu, izvoru, izvorni obliki, godovnem dnevu)
 \end{itemize}
 
-\section{Uporabniški vmesnik}
+\section{Uporabniški vmesnik z navodili za uporabo}
 
-Program  "gui\_demo.py"~ ob zagonu odpre okno, kamor lahko v iskalno okence vpišemo željeno poizvedbo. Pod iskalnim okencem se nam ponuja izbira spola. Iskanje poženemo z gumbom "Išči!"~ ali s pritiskom na tipko "Enter". Iskalna funkcija nam nato vrne iskane podatke in jih izpiše uporabniku v prikazovalniku spodaj.
+Uporabnik program zažene tako, da odpre datoteko \texttt{gui\_demo.py}. Ob tem se mu takoj pojavi grafični vmesnik (Slika 1), kamor lahko v iskalno polje vpiše poljubno ime, za katerega bi rad pridobil že omenjene podatke. Ko vpišemo ime, ne pozabimo označiti tudi spola. S klikom na gumb \texttt{Išči!} ali s pritiskom na tipko \texttt{Enter}, se podatki za vpisano ime izpišejo v prikazovalniku spodaj (Slika 2). V primeru, da uporabnik vpiše iskalni niz, ki je neustrezen ali pa se ime v Sloveniji ne pojavlja oz. je njegova pogostost manjša od 5, potem se uporabniku pojavi novo okence, ki ga na to opozori (Slika 3). Ko se iskanja naveličamo, okno enstavno zapremo s klikom na križec desno zgoraj kot ponavadi.
+
+\textsc{Opomba:} Za pravilno delovanje programa morata biti nameščena modula re in requests ter Python 3.4.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.8] {zacetek.jpg}
+\caption{Začetno okno.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6] {primer.jpg}
+\caption{Primer iskanja.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.8] {napaka.jpg}
+\caption{Izpis napake.}
+\end{figure}
 
 \section{Testiranje}
 Program za iskanje sva testirali z naključno izbranimi imeni, zato ne izključujeva možnosti, da morda za kakšno izmed imen aplikacija ne prikaže vseh željenih podakov, v primeru, da je stran o imenu iz wikipedije oblikovana kako drugače kot v običajnem primeru. Na primerih, ki sva jih uspeli preizkusiti, aplikacija deluje pravilno.

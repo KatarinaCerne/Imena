@@ -6,7 +6,7 @@ from urllib.parse import quote
 
 class Imena:   
     def prikazi(self, *argumenti):
-        print('Kliknili so me!')
+        #print('Kliknili so me!')
         try:
             imeP = self.ime.get()
             spolP = self.spol.get()
@@ -22,7 +22,7 @@ class Imena:
             self.izvornaoblika.set("")
             self.god.set("")
             messagebox.showerror("Napaka", "Pogostost imena je manjša kot pet ali pa se to ime v Sloveniji ne pojavlja.\nŠe enkrat preverite, če ste pravilno vpisali vaš iskalni niz in izbrali pravi spol.")
-            print('Pogostost imena je manjša kot pet ali pa se to ime v Sloveniji ne pojavlja.\nŠe enkrat preverite, če ste pravilno vpisali vaš iskalni niz in izbrali pravi spol.')
+            #print('Pogostost imena je manjša kot pet ali pa se to ime v Sloveniji ne pojavlja.\nŠe enkrat preverite, če ste pravilno vpisali vaš iskalni niz in izbrali pravi spol.')
         else:
             self.pogostost.set("To ime je po pogostosti na " + k[0][1] + str(". mestu."))
 
