@@ -3,6 +3,7 @@ __author__ = 'Neza&Katarina'
 from tkinter import *
 from dolvleka import*
 from urllib.parse import quote
+from tkinter import messagebox
 
 class Imena:   
     def prikazi(self, *argumenti):
@@ -21,6 +22,7 @@ class Imena:
             self.izvornaoblika.set(s["izvorna oblika"])
             self.god.set(s["god"])
         except:
+            messagebox.showerror("Napaka", "Pogostost imena je manjša kot pet ali pa se to ime v Sloveniji ne pojavlja.\nŠe enkrat preverite, če ste pravilno vpisali vaš iskalni niz.")
             print('Pogostost imena je manjša kot pet ali pa se to ime v Sloveniji ne pojavlja.\nŠe enkrat preverite, če ste pravilno vpisali vaš iskalni niz.')
             pass
 
