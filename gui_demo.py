@@ -12,14 +12,8 @@ class Imena:
             spolP = self.spol.get()
             k = prenos1(imeP,spolP)
             self.stevilo.set(k[0][0])
-            self.pogostost.set("To ime je po pogostosti na " + k[0][1] + str(". mestu."))
             
             s = prenos2(imeP,spolP)
-            print(s)
-            self.pomen.set(s["pomen"])
-            self.izvor.set(s["izvor"])
-            self.izvornaoblika.set(s["izvorna oblika"])
-            self.god.set(s["god"])
         except:
             self.stevilo.set("")
             self.pogostost.set("")
@@ -29,8 +23,14 @@ class Imena:
             self.god.set("")
             messagebox.showerror("Napaka", "Pogostost imena je manjša kot pet ali pa se to ime v Sloveniji ne pojavlja.\nŠe enkrat preverite, če ste pravilno vpisali vaš iskalni niz in izbrali pravi spol.")
             print('Pogostost imena je manjša kot pet ali pa se to ime v Sloveniji ne pojavlja.\nŠe enkrat preverite, če ste pravilno vpisali vaš iskalni niz in izbrali pravi spol.')
-            pass
+        else:
+            self.pogostost.set("To ime je po pogostosti na " + k[0][1] + str(". mestu."))
 
+            self.pomen.set(s["pomen"])
+            self.izvor.set(s["izvor"])
+            self.izvornaoblika.set(s["izvorna oblika"])
+            self.god.set(s["god"])
+    
     def __init__(self, root):
         root.title('Say my name')
 
