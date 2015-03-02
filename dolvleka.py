@@ -11,7 +11,6 @@ def prenos1(name, gender):
     povezava = 'http://www.stat.si/ImenaRojstva/sl/FirstNames/SearchFirstNames?Ime={0}&Priimek=&Spol={1}'.format(ime, gender)
     with urllib.request.urlopen(povezava) as f:
         stran = f.read().decode("utf-8")  # namesto str(f.read()) se uporabi metodo decode
-        #print(stran)
         vzorec = re.compile(r'<div><span class="fg-color-blue"><b>(.*) </b></span> <br />\s*.*<b>(\d+)\. mesto. </b>')
         podatki = re.findall(vzorec, stran)
         return podatki
