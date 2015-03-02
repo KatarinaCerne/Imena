@@ -16,8 +16,6 @@
 
 \tableofcontents
 
-\newpage
-
 \section{Opis projekta}
 
 Aplikacija, ki je bila ustvarjena pri projektu Imena, omogoča uporabniku, da preko enostavnega iskalnika izbrska nekaj statističnih podatkov o vnešenem imenu:
@@ -46,34 +44,41 @@ Vir podatkov sta spletni strani:
 (vir statističnih podatkov)
 \item http://sl.wikipedia.org/w/index.php?\\
 (vir podatkov o pomenu, izvoru, izvorni obliki, godovnem dnevu)
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.25] {wiki.jpg}
+\caption{Podatke o imenu na wikipediji iščemo zgolj v tej tabeli, ne pa v celotnem besedilu.}
+\end{figure}
+
 \end{itemize}
+
+\section{Testiranje}
+Program za iskanje sva testirali z naključno izbranimi imeni, zato ne izključujeva možnosti, da morda za kakšno izmed imen aplikacija ne prikaže vseh željenih podakov, v primeru, da je stran o imenu iz wikipedije oblikovana kako drugače kot v običajnem primeru. Na primerih, ki sva jih uspeli preizkusiti, aplikacija deluje pravilno.
 
 \section{Uporabniški vmesnik z navodili za uporabo}
 
-Uporabnik program zažene tako, da odpre datoteko \texttt{gui\_demo.py}. Ob tem se mu takoj pojavi grafični vmesnik (Slika 1), kamor lahko v iskalno polje vpiše poljubno ime, za katerega bi rad pridobil že omenjene podatke. Ko vpišemo ime, ne pozabimo označiti tudi spola. S klikom na gumb \texttt{Išči!} ali s pritiskom na tipko \texttt{Enter}, se podatki za vpisano ime izpišejo v prikazovalniku spodaj (Slika 2). V primeru, da uporabnik vpiše iskalni niz, ki je neustrezen ali pa se ime v Sloveniji ne pojavlja oz. je njegova pogostost manjša od 5, potem se uporabniku pojavi novo okence, ki ga na to opozori (Slika 3). Ko se iskanja naveličamo, okno enstavno zapremo s klikom na križec desno zgoraj kot ponavadi.
+Uporabnik program zažene tako, da odpre datoteko \texttt{gui\_demo.py}. Ob tem se mu takoj pojavi grafični vmesnik (Slika 2), kamor lahko v iskalno polje vpiše poljubno ime, za katerega bi rad pridobil že omenjene podatke. Ko vpišemo ime, ne pozabimo označiti tudi spola. S klikom na gumb \texttt{Išči!} ali s pritiskom na tipko \texttt{Enter}, se podatki za vpisano ime izpišejo v prikazovalniku spodaj (Slika 3). V primeru, da uporabnik vpiše iskalni niz, ki je neustrezen ali pa se ime v Sloveniji ne pojavlja oz. je njegova pogostost manjša od 5, potem se uporabniku pojavi novo okence, ki ga na to opozori (Slika 4). Ko se iskanja naveličamo, okno enstavno zapremo s klikom na križec desno zgoraj kot ponavadi.
 
 \textsc{Opomba:} Za pravilno delovanje programa morajo biti nameščeni Python~3.4. ter modula re in urllib.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.8] {zacetek.jpg}
 \caption{Začetno okno.}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.6] {primer.jpg}
 \caption{Primer iskanja.}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.8] {napaka.jpg}
 \caption{Izpis napake.}
 \end{figure}
-
-\section{Testiranje}
-Program za iskanje sva testirali z naključno izbranimi imeni, zato ne izključujeva možnosti, da morda za kakšno izmed imen aplikacija ne prikaže vseh željenih podakov, v primeru, da je stran o imenu iz wikipedije oblikovana kako drugače kot v običajnem primeru. Na primerih, ki sva jih uspeli preizkusiti, aplikacija deluje pravilno.
 
 
 
