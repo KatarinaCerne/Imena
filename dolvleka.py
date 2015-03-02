@@ -6,11 +6,13 @@ from urllib.parse import quote
 #spol je enak 'Z' ali 'M'
 #prvo bova povlekli podatke s statisticnega urada RS
 def prenos1(name, gender):
-    ime = quote(name, encoding="windows-1250")   # enkodiramo utf-8 niz v windows-1250 ter zakodiramo v način, ki je primeren za URL povezave
-    povezava = 'http://www.stat.si/imena_baza_imena.asp?ime={0}&priimek=&spol={1}'.format(ime, gender)
+    ime = quote(name, encoding="utf-8")   # enkodiramo utf-8 niz v windows-1250 ter zakodiramo v način, ki je primeren za URL povezave
+    
+    povezava = 'http://www.stat.si/ImenaRojstva/sl/FirstNames/SearchFirstNames?Ime={0}&Priimek=&Spol={1}'.format(ime, gender)
     with urllib.request.urlopen(povezava) as f:
-        stran = f.read().decode("windows-1250")  # namesto str(f.read()) se uporabi metodo decode
-        vzorec = re.compile(r'<p>\s*<span class="naslov2">(.*)</span>s*.*<b>(\d+)\. mesto</b>')
+        stran = f.read().decode("utf-8")  # namesto str(f.read()) se uporabi metodo decode
+        #print(stran)
+        vzorec = re.compile(r'<div><span class="fg-color-blue"><b>(.*) </b></span> <br />\s*.*<b>(\d+)\. mesto. </b>')
         podatki = re.findall(vzorec, stran)
         return podatki
     #podatki so oblike: [(št. ljudi s tem imenom-tekst, številka pogostosti-število)]
