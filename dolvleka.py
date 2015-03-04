@@ -46,19 +46,19 @@ def prenos2(name, gender):
                 pomen = re.findall(vzorec_pomen, stran)
 ##                print(pomen)
                 if pomen != []:
-                    sl["pomen"] = pomen[0]
+                    sl["pomen"] = re.sub(r'<i>|</i>', '', pomen[0])
 
                 vzorec_izvor = re.compile(r'<th>Izvor</th>\s*<td>(.[^<]*\w+)</td>')
                 izvor = re.findall(vzorec_izvor, stran)
 ##                print(izvor)
                 if izvor != []:
-                    sl["izvor"] = izvor[0]
+                    sl["izvor"] = re.sub(r'<i>|</i>', '', izvor[0])
                 
                 vzorec_izvorna_oblika = re.compile(r'<th>Izvorna oblika</th>\s*<td>(.[^<]*\w+)</td>')
                 izvorna_oblika = re.findall(vzorec_izvorna_oblika, stran)
 ##                print(izvorna_oblika)
                 if izvorna_oblika != []:
-                    sl["izvorna oblika"] = izvorna_oblika[0] 
+                    sl["izvorna oblika"] = re.sub(r'<i>|</i>', '', izvorna_oblika[0]) 
 
                 vzorec_god = re.compile(r'<th>God</th>\s*<td>(.[^<]*\w+)</td>')
                 god = re.findall(vzorec_god, stran)
